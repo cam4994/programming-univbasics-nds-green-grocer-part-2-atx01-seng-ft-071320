@@ -8,17 +8,19 @@ def apply_coupons(cart, coupons)
     price = coupon[:cost]/ coupon[:num]
     grocery_item[:price] = price 
     grocery_item[:clearance] = new_item[:clearance]
-    grocery_item[:count] = coupon[:num]
-    cart.push(grocery_item)
+    if new_item[:count] >= coupon[:num]
+      grocery_item[:count] = coupon[:num]
+      cart.push(grocery_item)
+    end 
     grocery_item = {}
       cart.each do |hash|
-        if hash[:item] == coupon[:item]
+        if hash[:item] == coupon[:item] && hash[:count] >= coupon[:num]
           hash[:count] = hash[:count] - coupon[:num]
         end 
       end 
   end
   cart
-end
+ends
 
 
 def apply_clearance(cart)
